@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { addItem } from "../redux/slice";
 
 function Product() {
-  const dispatch = useDispatch();                //use to call actions
+  const dispatch = useDispatch(); //use to call actions
   return (
     <>
       <main className="main">
@@ -24,6 +24,12 @@ function Product() {
               className="add-to-cart"
             >
               Add to Cart
+            </button>
+            <button
+              onClick={() => dispatch(removeItem(1))}
+              className="add-to-cart"
+            >
+              Remove From Cart
             </button>
           </div>
         </div>

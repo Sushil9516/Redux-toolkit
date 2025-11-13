@@ -10,7 +10,13 @@ const addToCart = createSlice({
   reducers: {
     //==============================Actions===============================
     addItem: (state) => {
+      console.log(state.value);
+      console.log(state);
+
       state.value += 1;
+    },
+    removeItem: (state) => {
+      state.value -= 1;
     },
   },
 });
