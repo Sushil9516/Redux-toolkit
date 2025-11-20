@@ -67,15 +67,13 @@ function Product() {
               </p>
 
               <div className="button-group">
-                <button
-                  onClick={() => dispatch(removeItem(item.id))}
-                  className="remove-to-cart"
-                >
-                  Remove From Cart
-                </button>
-
                 {cartSelector.find((cartItem) => cartItem.id === item.id) ? (
-                  <button className="add-to-cart btn-disabled">Added in Cart</button>
+                  <button
+                    className="add-to-cart btn-disabled"
+                    onClick={() => dispatch(removeItem(item))}
+                  >
+                    Remove From Cart
+                  </button>
                 ) : (
                   <button
                     onClick={() => dispatch(addItem(item))}

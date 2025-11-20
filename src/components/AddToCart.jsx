@@ -1,18 +1,21 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function AddToCart() {
   const cartSelector = useSelector((state) => state.cart.items);
-  // console.log(cartSelector.length);  
+  // console.log(cartSelector.length);
 
   return (
     <>
-      <div className="cart">
-        <i className="cart-icon">🛒</i>
-        <span className="cart-count">
-          {cartSelector.length ? cartSelector.length : 0}
-        </span>
-      </div>
+      <Link to="/cart">
+        <div className="cart">
+          <i className="cart-icon">🛒</i>
+          <span className="cart-count">
+            {cartSelector.length ? cartSelector.length : 0}
+          </span>
+        </div>
+      </Link>
     </>
   );
 }
