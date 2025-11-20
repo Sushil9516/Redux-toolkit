@@ -12,7 +12,7 @@ const addToCart = createSlice({
 
     //====================================all actions always contains two parameter(state, action)
     addItem: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.items.push(action.payload);
 
       state.value += 1;

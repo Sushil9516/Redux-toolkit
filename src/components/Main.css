@@ -246,3 +246,9 @@ body {
     width: 90%; /* full width on mobile */
   }
 }
+
+.btn-disabled,
+.btn-disabled:hover {
+  background: grey;
+  cursor: not-allowed;
+}

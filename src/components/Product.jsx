@@ -47,37 +47,46 @@ function Product() {
         </div>
       </main> */}
       <div className="product-container">
-        {productSelector.map((item) => (
-          <div key={item.id} className="product-card">
-            <img src={item.image} alt={item.title} className="product-image" />
+        {productSelector.length &&
+          productSelector.map((item) => (
+            <div key={item.id} className="product-card">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="product-image"
+              />
 
-            <h3 className="product-title">{item.title}</h3>
+              <h3 className="product-title">{item.title}</h3>
 
-            <p className="product-price">$ {item.price}</p>
+              <p className="product-price">$ {item.price}</p>
 
-            <p className="product-category">{item.category}</p>
+              <p className="product-category">{item.category}</p>
 
-            <p className="product-description">
-              {item.description.substring(0, 80)}...
-            </p>
+              <p className="product-description">
+                {item.description.substring(0, 80)}...
+              </p>
 
-            <div className="button-group">
-              <button
-                onClick={() => dispatch(removeItem(item.id))}
-                className="remove-to-cart"
-              >
-                Remove From Cart
-              </button>
+              <div className="button-group">
+                <button
+                  onClick={() => dispatch(removeItem(item.id))}
+                  className="remove-to-cart"
+                >
+                  Remove From Cart
+                </button>
 
-              <button
-                onClick={() => dispatch(addItem(item))}
-                className="add-to-cart"
-              >
-                Add to Cart
-              </button>
+                {cartSelector.find((cartItem) => cartItem.id === item.id) ? (
+                  <button className="add-to-cart btn-disabled">Added in Cart</button>
+                ) : (
+                  <button
+                    onClick={() => dispatch(addItem(item))}
+                    className="add-to-cart"
+                  >
+                    Add to Cart
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </>
   );
