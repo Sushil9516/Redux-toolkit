@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { clearAllItems } from "../redux/slice";
 import { Route, Routes } from "react-router-dom";
 import CartList from "./CartList";
+import Checkout from "./Checkout";
+import PaymentPage from "./Payment";
 function Main() {
   const dispatch = useDispatch();
 
@@ -19,6 +21,8 @@ function Main() {
       <Routes>
         <Route path="/" element={<Product />} />
         <Route path="/cart" element={<CartList />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/payment" element={<PaymentPage />} />
       </Routes>
     </>
   );

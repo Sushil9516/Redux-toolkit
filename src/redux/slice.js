@@ -1,36 +1,73 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  // items: [],
   items: localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart"))
     : [],
 };
 
-const addToCart = createSlice({
+const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    //==============================Actions===============================
-
-    //====================================all actions always contains two parameter(state, action)
+    // ===================== ADD ITEM =====================
     addItem: (state, action) => {
-      console.log(action.payload);
-      state.items.push(action.payload);
+      const item = action.payload;
+      const exist = state.items.find((i) => i.id === item.id);
+
+      if (exist) {
+        // Already in cart → increase quantity
+        exist.quantity += 1;
+      } else {
+        // New item → add with quantity = 1
+        state.items.push({ ...item, quantity: 1 });
+      }
+
       localStorage.setItem("cart", JSON.stringify(state.items));
     },
+
+    // ===================== REMOVE ITEM =====================
     removeItem: (state, action) => {
-      // state.value > 0 ? (state.value -= 1) : null;
       state.items = state.items.filter(
-        (cartItem) => cartItem.id !== action.payload.id
+        (cartItem) => cartItem.id !== action.payload
       );
       localStorage.setItem("cart", JSON.stringify(state.items));
     },
+
+    // ===================== INCREASE QUANTITY =====================
+    increaseQuantity: (state, action) => {
+      const item = state.items.find((i) => i.id === action.payload);
+      if (item) {
+        item.quantity += 1;
+      }
+      localStorage.setItem("cart", JSON.stringify(state.items));
+    },
+
+    // ===================== DECREASE QUANTITY =====================
+    decreaseQuantity: (state, action) => {
+      const item = state.items.find((i) => i.id === action.payload);
+
+      if (item && item.quantity > 1) {
+        item.quantity -= 1;
+      }
+
+      localStorage.setItem("cart", JSON.stringify(state.items));
+    },
+
+    // ===================== CLEAR ALL ITEMS =====================
     clearAllItems: (state) => {
-      state.value = 0;
+      state.items = [];
+      localStorage.setItem("cart", JSON.stringify(state.items));
     },
   },
 });
 
-export const { addItem, removeItem, clearAllItems } = addToCart.actions;
-export default addToCart.reducer;
+export const {
+  addItem,
+  removeItem,
+  increaseQuantity,
+  decreaseQuantity,
+  clearAllItems,
+} = cartSlice.actions;
+
+export default cartSlice.reducer;
